@@ -11,6 +11,12 @@ WARNINGS = 'warnings'
 CRITICAL = 'critical'
 BUGS = 'bugs'
 
+JS_SCRIPT = """
+    function change(arg){
+        arg.classList.toggle('resolved');
+    }
+"""
+
 
 class Filter(object):
     regex = None
@@ -71,7 +77,7 @@ class Issue(object):
 
     def html_repr(self):
         self.html = u"""
-            <div>
+            <div onclick="change(this);">
                 <table>
                     <tr>
                         <td>{issue}</td>
@@ -139,7 +145,7 @@ class Critical(Issue):
 
     def html_repr(self):
         self.html = u"""
-            <div>
+            <div onclick="change(this);">
                 <table>
                     <tr>
                         <td>{issue}</td>
@@ -166,9 +172,14 @@ def create_html(styles, issues):
     html = """
 <html>
     <head>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script>
+            {script}
+        </script>
         <style>
             {table_style}
             {styles}
+            {resolved}
         </style>
     </head>
     <body>
@@ -178,7 +189,9 @@ def create_html(styles, issues):
     """.format(
         table_style='div {border-bottom: 2px dashed blue; margin: 30px;}\n',
         styles='\n'.join(styles),
-        issues='\n'.join(issues)
+        issues='\n'.join(issues),
+        resolved='.resolved {background-color: red;}',
+        script=JS_SCRIPT,
     )
     return html
 
