@@ -19,6 +19,7 @@ def get_tag_text(root, path):
 def check_settings():
     pass
 
+
 def get_pathes():
     try:
         tree = et.ElementTree(file=SETTINGS_PATH)

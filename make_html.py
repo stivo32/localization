@@ -190,7 +190,7 @@ def create_html(styles, issues):
         table_style='div {border-bottom: 2px dashed blue; margin: 30px;}\n',
         styles='\n'.join(styles),
         issues='\n'.join(issues),
-        resolved='.resolved {background-color: red;}',
+        resolved='.resolved {background-color: gray;}',
         script=JS_SCRIPT,
     )
     return html
